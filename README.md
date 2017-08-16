@@ -2,7 +2,7 @@
 [![Docker Automated](https://img.shields.io/docker/automated/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Status](https://img.shields.io/docker/build/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Pulls](https://img.shields.io/docker/pulls/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Build Status](https://travis-ci.org/orangehrm/orangehrm-uat-environment.svg?branch=php-5.6)](https://travis-ci.org/orangehrm/orangehrm-uat-environment)
 
 ## Introduction
-orangehrm-uat-environment is a dockerized UAT environment for OrangeHRM. Usually it will take hours to configure and prepare the uat environment for OrangeHRM system. This project will save the support engineers / deployment time.
+orangehrm-test-environment is a dockerized Test environment for OrangeHRM. Usually it will take hours to configure and prepare the uat environment for OrangeHRM system. This project will save the support engineers / deployment time.
 
 This environment will depends on containers of [orangehrm-uat-image](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/),[mysql](https://hub.docker.com/_/mysql/) and [phpmyadmin](https://hub.docker.com/r/phpmyadmin/phpmyadmin/).
 ## Prerequisites
@@ -24,11 +24,11 @@ Make sure mentioned prerequisites are there in your host machine.
 
 ## Containers
 
-| Container Name  | Service Name in docker-compose.yml | Description | IP Address | Used Ports |
-|-----------------|------------------------------------|-------------|------------|------------|
-| uat_web         | web                                | PHP 5.6     | 10.5.0.2   | 443        |
-| uat_mysql       | db                                 | MySQL 5.5   | 10.5.0.3   | 3306       |
-| uat_phpmyadmin  | phpmyadmin                         | phpMyAdmin  | 10.5.0.4   | 9090       |
+| Container Name   | Service Name in docker-compose.yml | Description | IP Address | Used Ports |
+|----------------- |------------------------------------|-------------|------------|------------|
+| test_web         | web                                | PHP 5.6     | 10.5.0.2   | 443        |
+| test_mysql       | db                                 | MySQL 5.5   | 10.5.0.3   | 3306       |
+| test_phpmyadmin  | phpmyadmin                         | phpMyAdmin  | 10.5.0.4   | 9090       |
 
 ## Install orangehrm eagle-core inside the container
 1. Get a checkout from svn to ohrm_uat directory (`svn checkout https://repos.orangehrm.com/enterprise/branch/eagle-core/`).
