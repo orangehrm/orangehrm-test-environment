@@ -1,0 +1,5 @@
+.idea/
+vendor/
+*~
+logs/*
+tests/_output/*

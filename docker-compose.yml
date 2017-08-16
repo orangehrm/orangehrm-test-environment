@@ -1,0 +1,59 @@
+version: '2'
+services:
+  web:
+    image: orangehrm/orangehrm-environment-images:uat-5.6
+    ports:
+      - "443:443"
+    volumes:
+      - ./html:/var/www/html
+      - ./config/php5/php.ini:/usr/local/etc/php/php.ini
+      - ./config/mysql-client:/etc/mysql
+      - ./config/apache2/sites-available:/etc/apache2/sites-available
+      - ./config/apache2/cert:/etc/apache2/cert
+      - ./logs/ubuntu_logs:/var/log/apache2
+      - /etc/localtime:/etc/localtime
+      - ./config/hostname:/etc/hostname
+      - ./config/welcome:/etc/motd
+      - ./config/sudoers:/etc/sudoers
+      - ./config/crontabs:/var/spool/cron/crontabs
+      - ./config/ssh/sshd_config:/etc/ssh/sshd_config
+      - ./config/ldap/nsswitch.conf:/etc/nsswitch.conf
+      - ./config/ldap/ldap-nss.conf:/etc/libnss-ldap.conf
+      - ./config/ldap/ldap-pam.conf:/etc/pam_ldap.conf
+      - ./config/ldap/pam.d/common-auth:/etc/pam.d/common-auth
+      - ./config/ldap/pam.d/common-account:/etc/pam.d/common-account
+      - ./config/ldap/pam.d/common-password:/etc/pam.d/common-password
+      - ./config/ldap/pam.d/common-session:/etc/pam.d/common-session
+      - ./config/ldap/pam.d/common-session-noninteractive:/etc/pam.d/common-session-noninteractive
+    links:
+      - db
+    restart: always
+    hostname: orangehrm-uat-web
+    container_name: uat_web
+
+  db:
+    image: mysql:5.5
+    expose:
+      - "3306"
+    volumes:
+      - ./config/mysql-server:/etc/mysql
+      - ./logs/mysql_logs:/var/log
+      - /etc/localtime:/etc/localtime
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    restart: always
+    hostname: orangehrm-uat-db
+    container_name: uat_mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    volumes:
+      - /etc/localtime:/etc/localtime
+    links:
+      - db
+    ports:
+      - "9090:80"
+    environment:
+      PMA_HOST: db
+    restart: always
+    container_name: enterprise_uat_phpmyadmin
