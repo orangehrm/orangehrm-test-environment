@@ -7,15 +7,8 @@
 class_name: AcceptanceTester
 modules:
     enabled:
-        - WebDriver
-        - Cli
-        - \Helper\Acceptance
-    config:
-        WebDriver:
-            url: 'http://localhost:9090'
-            browser: 'firefox'
-
-env:
-    firefox:
-
+            - PhpBrowser:
+                url: http://localhost:9090
+            - Cli
+            - \Helper\Acceptance
 
