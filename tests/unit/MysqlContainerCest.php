@@ -28,9 +28,9 @@ class MysqlContainerCest
     public function checkMySQLConfigurations(AcceptanceTester $I){
         $I->wantTo("verify my.cnf configuration is loaded");
         $I->runShellCommand("docker exec test_mysql mysql -uroot -p1234 -se 'show variables'");
-        $I->seeInShellOutput("event_scheduler	ON");
+        $I->seeInShellOutput("orangehrm-test-db");
         $I->seeInShellOutput("innodb_log_buffer_size	8388608");
-        $I->seeInShellOutput("innodb_buffer_pool_size	2147483648");
-        $I->seeInShellOutput("max_allowed_packet	100663296");
+        $I->seeInShellOutput("innodb_buffer_pool_size	134217728");
+        $I->seeInShellOutput("max_allowed_packet	1048576");
     }
 }
