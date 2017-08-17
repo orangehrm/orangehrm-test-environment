@@ -1,7 +1,7 @@
-FROM orangehrm/orangehrm-environment-images:prod-5.5
+FROM orangehrm/orangehrm-environment-images:prod-5.6
 
 MAINTAINER orangehrm
-LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>"
+LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
 
 # install dependent software
 RUN apt-get update && apt-get install \
