@@ -4,7 +4,7 @@ MAINTAINER orangehrm
 LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
 
 # install dependent software
-RUN apt-get update && apt-get install \
+RUN apt-get update && apt-get install -y \
     bzip2 \
     netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
