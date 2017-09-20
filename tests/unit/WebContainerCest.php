@@ -33,9 +33,14 @@ class WebContainerCest
     public function checkApacheServiceIsRunning(UnitTester $I){
         $I->wantTo("verify apache is up and running in the container");
         $I->runShellCommand("ping -c 10 localhost");
-        $I->runShellCommand("docker exec test_web service apache2 status");
+        $I->runShellCommand("docker exec test_web service httpd status");
         $I->seeInShellOutput('apache2 is running');
     }
 
+    public function checkXdebugStatus(UnitTester $I){
+        $I->wantTo("verify Xdebug is installed in the container");
+        $I->runShellCommand("docker exec test_web php --version");
+        $I->seeInShellOutput('Xdebug v2.5.5');
+    }
 
 }
