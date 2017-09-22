@@ -23,6 +23,8 @@ USER root
 #add vhost config
 #COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
 COPY config/apache2-sites/000-default.conf /etc/httpd/sites-available/000-default.conf
+COPY config/cert/orangehrm.crt /etc/apache2/cert/orangehrm.crt
+COPY config/cert/orangehrm.key /etc/apache2/cert/orangehrm.key
 RUN rm /etc/httpd/sites-enabled/orangehrm.conf
 #RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/orangehrm.conf
 RUN ln -s /etc/httpd/sites-available/000-default.conf /etc/httpd/sites-enabled/000-default.conf
