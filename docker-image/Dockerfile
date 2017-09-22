@@ -21,9 +21,9 @@ RUN pecl install xdebug && \
 USER root
 
 #add vhost config
-COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
+#COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
 RUN rm /etc/httpd/sites-enabled/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/orangehrm.conf
+#RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/orangehrm.conf
 
 # set working dir as the installer directory
 WORKDIR /var/www/html/installer/
