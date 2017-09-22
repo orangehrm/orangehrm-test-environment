@@ -24,6 +24,9 @@ before_install:
   - docker version
   - composer self-update
   - docker build -t $REPO:$TAG docker-image
+  - docker exec test_web bash -c 'httpd -S'
+  - docker exec test_web bash -c 'cd /etc/httpd/sites-enabled && ls'
+
 
 install:
   - docker-compose up -d
