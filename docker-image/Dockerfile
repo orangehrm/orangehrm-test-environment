@@ -7,6 +7,7 @@ LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramar
 RUN yum -y install \
     bzip2 \
     nc \
+    nmap \
     && yum -y update bash \
     && rm -rf /var/cache/yum/* \
     && yum clean all
