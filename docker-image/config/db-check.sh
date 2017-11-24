@@ -6,7 +6,7 @@
 #done
 while true; do
  NMAP=$(nmap -P0 -sT -p3306 dbserver)
- if [[ $NMAP == *"Host is up"* || $NMAP == *"closed"* ]]; then
+ if [[ $NMAP == *"Host is up"* && $NMAP == *"open"* ]]; then
     echo "connection!!!"
     break
  fi
