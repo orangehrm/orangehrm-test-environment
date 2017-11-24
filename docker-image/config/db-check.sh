@@ -1,4 +1,4 @@
-until nc -z -v -w30 dbserver 3306
+until nmap -P0 -sT -p3306 dbserver
 do
   echo "Waiting for database connection..."
   # wait for 5 seconds before check again

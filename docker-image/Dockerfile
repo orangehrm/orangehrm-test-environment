@@ -6,7 +6,7 @@ LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramar
 # install dependent software
 RUN yum -y install \
     bzip2 \
-    netcat-openbsd \
+    nc \
     && yum -y update bash \
     && rm -rf /var/cache/yum/* \
     && yum clean all
