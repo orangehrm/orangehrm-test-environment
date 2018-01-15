@@ -3,9 +3,13 @@ FROM orangehrm/orangehrm-environment-images:prod-5.6-centos
 MAINTAINER orangehrm
 LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
 
+RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+
 # install dependent software
 RUN yum -y install \
     bzip2 \
+    git \
+    nodejs \
     nc \
     nmap \
     && yum -y update bash \
@@ -16,6 +20,14 @@ RUN yum -y install \
 RUN pecl install xdebug && \
   pecl install mongo && \
   pecl install pecl.php.net/xhprof-0.9.4
+
+#install bower and gulp
+RUN npm install bower -g
+RUN npm install gulp -g
+RUN npm install nodemon -g
+RUN npm install pm2 -g
+# installing composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 
 # Our user in the container
@@ -36,7 +48,6 @@ WORKDIR /var/www/html/installer/
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
 COPY config/php.ini /etc/php.ini
-RUN echo "zend_extension=/usr/lib64/php/modules/xdebug.so" >>/etc/php.ini
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 RUN  chmod +x /usr/bin/phpunit
