@@ -9,7 +9,6 @@ services:
       - ./logs/ubuntu_logs:/var/log/apache2
       - /etc/localtime:/etc/localtime
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-      - /var/www/html/techOps/test-image:/var/www/html
     privileged: true
     links:
       - db
