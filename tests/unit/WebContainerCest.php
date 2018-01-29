@@ -12,7 +12,7 @@ class WebContainerCest
     }
 
     public function checkContainerIsRunning(UnitTester $I){
-        $I->wantTo("verify ubuntu container up and running");
+        $I->wantTo("verify centos container up and running");
         $I->runShellCommand("docker inspect -f {{.State.Running}} test_web");
         $I->seeInShellOutput("true");
     }
@@ -21,7 +21,7 @@ class WebContainerCest
     public function checkPHPVersion(UnitTester $I){
         $I->wantTo("verify php 5.5 is installed in the container");
         $I->runShellCommand("docker exec test_web php --version");
-        $I->seeInShellOutput('PHP 5.6');
+        $I->seeInShellOutput('PHP 7.1.11');
     }
 
     public function checkPHPUnitVersion(UnitTester $I){
@@ -36,6 +36,5 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web service apache2 status");
         $I->seeInShellOutput('apache2 is running');
     }
-
 
 }

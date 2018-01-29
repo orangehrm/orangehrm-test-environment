@@ -1,30 +1,48 @@
-FROM orangehrm/orangehrm-environment-images:prod-5.6
+FROM orangehrm/orangehrm-environment-images:prod-7.1
 
 MAINTAINER orangehrm
 LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
 
 # install dependent software
-RUN apt-get update && apt-get install -y \
+RUN yum install -y gcc-c++ make
+RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+
+RUN touch /etc/yum.repos.d/wandisco-svn.repo
+RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+#installing nodejs
+RUN yum -y install \
     bzip2 \
-    netcat-openbsd \
-    && rm -rf /var/lib/apt/lists/*
-
-# Enable and configure xdebug
-RUN pecl install xdebug && docker-php-ext-enable xdebug && \
-  pecl install mongo && \
-  pecl install pecl.php.net/xhprof-0.9.4 && \
-  docker-php-ext-enable xhprof
-
+    git \
+    nodejs \
+    sendmail \
+    subversion mod_dav_svn \
+    vim \
+    && yum -y update bash \
+    && rm -rf /var/cache/yum/* \
+    && yum clean all
 # Our user in the container
 USER root
-
 # set working dir as the installer directory
 WORKDIR /var/www/html/installer/
 
+#install bower and gulp
+RUN npm install bower gulp nodemon node-sass pm2 -g
+
+#install php-ast module
+RUN pecl install ast
+RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+
+# installing composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
-COPY config/php.ini /usr/local/etc/php/php.ini
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
+COPY phpunit-3.7.28.phar /usr/bin/phpunit3
 RUN  chmod +x /usr/bin/phpunit
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+#CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+
+# installing phan
+RUN cd /var/lib && composer require --dev phan/phan
+RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
