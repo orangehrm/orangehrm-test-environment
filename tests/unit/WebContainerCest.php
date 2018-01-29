@@ -29,12 +29,4 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web phpunit --version");
         $I->seeInShellOutput('PHPUnit 5.7.21');
     }
-
-    public function checkApacheServiceIsRunning(UnitTester $I){
-        $I->wantTo("verify apache is up and running in the container");
-        $I->runShellCommand("ping -c 10 localhost");
-        $I->runShellCommand("docker exec test_web service apache2 status");
-        $I->seeInShellOutput('apache2 is running');
-    }
-
 }
