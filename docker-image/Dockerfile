@@ -32,6 +32,10 @@ RUN npm install bower gulp nodemon node-sass pm2 -g
 RUN pecl install ast
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
+#install php-stats module
+RUN pecl install stats-2.0.3
+RUN echo "extension=stats.so" >> /etc/php.ini
+
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
