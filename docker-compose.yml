@@ -2,7 +2,7 @@ version: '2'
 services:
 
   rabbitmq:
-    image: orangehrm/orangehrm-test-environment:rabbitmq-3.6-management
+    image: orangehrm/orangehrm-environment-images:rabbitmq-3.6-management
     ports:
       - "15671:15671"
       - "5672:5672"

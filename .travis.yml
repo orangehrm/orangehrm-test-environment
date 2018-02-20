@@ -3,7 +3,7 @@ sudo: required
 
 env:
   global:
-  - REPO=orangehrm/orangehrm-test-environment
+  - REPO=orangehrm/orangehrm-environment-images
   - TAG=rabbitmq-3.6-management
 
 matrix:
