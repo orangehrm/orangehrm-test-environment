@@ -9,7 +9,7 @@ services:
       - "5671:5671"
 
     restart: always
-    container_name: enterprise_test_rabbitmq_3.6_management
+    container_name: rabbitmq_3.6_management
 
 
 

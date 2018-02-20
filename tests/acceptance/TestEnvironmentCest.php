@@ -25,11 +25,11 @@ class TestEnvironmentCest
     public function checkLoginToRabbitMQ(AcceptanceTester $I)
     {
         $I->wantTo("checking rabbitmq");
-        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 15671"');
+        $I->runShellCommand('docker exec rabbitmq_3.6_management bash -c "netstat -ltpn | grep 15671"');
         $I->seeInShellOutput('0.0.0.0:15671');
-        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5671"');
+        $I->runShellCommand('docker exec rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5671"');
         $I->seeInShellOutput(':::5671');
-        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5672"');
+        $I->runShellCommand('docker exec rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5672"');
         $I->seeInShellOutput(':::5672');
     }
 }
