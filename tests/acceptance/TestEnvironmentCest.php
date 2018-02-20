@@ -22,14 +22,14 @@ class TestEnvironmentCest
 //        $I->cantSeeInShellOutput("false");
 //    }
 
-    public function checkLoginToDBFromPhpmyadmin(AcceptanceTester $I){
-        $I->wantTo("log into mysql 5.5 server through phpmyadmin");
-        $I->amOnPage('http://localhost:9090');
-        $I->fillField('Username:', 'root');
-        $I->fillField('Password:', '1234');
-        $I->click('Go');
-        $I->see('Server: db');
-        $I->see("Server version: 5.5");
+    public function checkLoginToRabbitMQ(AcceptanceTester $I)
+    {
+        $I->wantTo("checking rabbitmq");
+        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 15671"');
+        $I->seeInShellOutput('0.0.0.0:15671');
+        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5671"');
+        $I->seeInShellOutput(':::5671');
+        $I->runShellCommand('docker exec enterprise_test_rabbitmq_3.6_management bash -c "netstat -ltpn | grep 5672"');
+        $I->seeInShellOutput(':::5672');
     }
-
 }
