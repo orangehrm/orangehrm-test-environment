@@ -31,7 +31,7 @@ install:
   - docker ps
 
 script:
-  - php vendor/bin/codecept --debug run acceptance
+  - php vendor/bin/codecept run acceptance
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
