@@ -50,6 +50,7 @@ RUN ln -s /etc/httpd/sites-available/000-default.conf /etc/httpd/sites-enabled/0
 
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
+COPY config/mysql-client/conf.d /etc/mysql/conf.d
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 COPY phpunit-3.7.28.phar /usr/bin/phpunit3
