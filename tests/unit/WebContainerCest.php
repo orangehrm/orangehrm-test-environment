@@ -33,7 +33,7 @@ class WebContainerCest
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
         $I->runShellCommand("docker exec test_web nc -h");
-        $I->seeInShellOutput('Ncat ');
+        $I->seeInShellOutput('Ncat');
 
     }
 
