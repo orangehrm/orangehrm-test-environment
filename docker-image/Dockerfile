@@ -60,3 +60,10 @@ RUN  chmod +x /usr/bin/phpunit
 # installing phan
 RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
+
+# enable and configure xdebug
+RUN pecl install Xdebug
+RUN echo "zend_extension=/usr/lib64/php/modules/xdebug.so" >>/etc/php.ini
+
+#installing nc command
+RUN yum install -y nmap-ncat
