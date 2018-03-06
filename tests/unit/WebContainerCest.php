@@ -30,16 +30,16 @@ class WebContainerCest
         $I->seeInShellOutput('PHPUnit 5.7.21');
     }
 
-    public function checkNcCommand(UnitTester $I){
-        $I->wantTo("verify nc command is installed in the image");
-        $I->runShellCommand("docker exec test_web nc -v");
-        $I->seeInShellOutput('Ncat:');
-    }
-
-    public function checkMySQLConfDir(AcceptanceTester $I){
-        $I->wantTo("verify conf.d directory");
-        $I->runShellCommand("docker exec test_web -c 'cd /etc/mysql/conf.d'");
-    }
+//    public function checkNcCommand(UnitTester $I){
+//        $I->wantTo("verify nc command is installed in the image");
+//        $I->runShellCommand("docker exec test_web nc -v");
+//        $I->seeInShellOutput('Ncat:');
+//    }
+//
+//    public function checkMySQLConfDir(AcceptanceTester $I){
+//        $I->wantTo("verify conf.d directory");
+//        $I->runShellCommand("docker exec test_web -c 'cd /etc/mysql/conf.d'");
+//    }
 
     public function checkXdebugVersion(AcceptanceTester $I){
         $I->wantTo("verify xdebug is installed in the image");
