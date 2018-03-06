@@ -1,10 +1,11 @@
 version: '2'
 services:
   web:
-    image: orangehrm/orangehrm-environment-images:test-7.1
+    image: orangehrm/orangehrm-environment-images:test-latest
     ports:
       - "443:443"
     volumes:
+      - ./config/mysql-client/conf.d:/etc/mysql/conf.d
       - ./config/mysql-client:/etc/mysql
       - ./logs/ubuntu_logs:/var/log/apache2
       - /etc/localtime:/etc/localtime
