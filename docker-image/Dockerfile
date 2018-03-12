@@ -13,6 +13,7 @@ RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wa
 RUN yum -y install \
     bzip2 \
     git \
+    nmap \
     nodejs \
     sendmail \
     subversion mod_dav_svn \
