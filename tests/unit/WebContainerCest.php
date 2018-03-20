@@ -39,7 +39,7 @@ class WebContainerCest
 
     public function checkXdebugStatus(UnitTester $I){
         $I->wantTo("verify Xdebug is installed in the container");
-        $I->runShellCommand("docker exec test_web php --version");
+        $I->runShellCommand("docker exec test_web php -dzend_extension=xdebug.so --version");
         $I->seeInShellOutput('Xdebug v2.5.5');
     }
 
