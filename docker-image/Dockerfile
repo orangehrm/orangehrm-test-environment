@@ -17,7 +17,8 @@ RUN yum -y install \
     && yum clean all
 
 # Enable and configure xdebug
-RUN pecl install xdebug && \
+RUN pecl channel-update pecl.php.net && \
+  pecl install xdebug-2.5.5 && \
   pecl install mongo && \
   pecl install pecl.php.net/xhprof-0.9.4
 
