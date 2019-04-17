@@ -38,8 +38,13 @@ RUN npm install bower gulp nodemon node-sass pm2 -g
 # RUN pecl install stats-2.0.3
 # RUN echo "extension=stats.so" >> /etc/php.ini
 
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
+RUN service httpd reload
+
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #add vhost config
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
