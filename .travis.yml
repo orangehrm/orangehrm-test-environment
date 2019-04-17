@@ -4,7 +4,7 @@ sudo: required
 env:
   global:
   - REPO=orangehrm/orangehrm-environment-images
-  - TAG=test-7.1
+  - TAG=test-7.0
 
 matrix:
     include:
@@ -36,6 +36,6 @@ script:
   - php vendor/bin/codecept run acceptance
 
 after_success:
-#  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#  - docker push $REPO:$TAG
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push $REPO:$TAG
 

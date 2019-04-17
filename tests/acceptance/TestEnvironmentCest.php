@@ -29,7 +29,7 @@ class TestEnvironmentCest
         $I->fillField('Password:', '1234');
         $I->click('Go');
         $I->see('Server: db');
-        $I->see("Server version: 5.5");
+        $I->see('test_db');
     }
 
 }
