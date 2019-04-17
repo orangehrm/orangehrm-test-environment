@@ -1,7 +1,7 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.1
+FROM orangehrm/orangehrm-environment-images:prod-7.0
 
 MAINTAINER orangehrm
-LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
+LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
 RUN yum install -y gcc-c++ make
@@ -9,6 +9,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 
 RUN touch /etc/yum.repos.d/wandisco-svn.repo
 RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+
 #installing nodejs
 RUN yum -y install \
     bzip2 \
