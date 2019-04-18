@@ -34,7 +34,6 @@ class WebContainerCest
         $I->wantTo("verify nc command is installed in the image");
         $I->runShellCommand("docker exec test_web nc -h");
         $I->seeInShellOutput('Ncat');
-
     }
 
     public function checkXdebugVersion(AcceptanceTester $I){
@@ -42,5 +41,17 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web bash -c 'yum info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
         $I->seeInShellOutput('2.');
+    }
+
+    public function checkAstIsInstalled(UnitTester $I){
+        $I->wantTo("verify ast module is installed in the image");
+        $I->runShellCommand("docker exec test_web php -m");
+        $I->seeInShellOutput('ast');
+    }
+
+    public function checkStatsIsInstalled(UnitTester $I){
+        $I->wantTo("verify stats module is installed in the image");
+        $I->runShellCommand("docker exec test_web php -m");
+        $I->seeInShellOutput('stats');
     }
 }
