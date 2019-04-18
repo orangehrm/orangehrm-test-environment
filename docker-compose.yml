@@ -10,35 +10,6 @@ services:
       - ./logs/ubuntu_logs:/var/log/apache2
       - /etc/localtime:/etc/localtime
     privileged: true
-    links:
-      - db
     restart: always
     hostname: orangehrm-test-web
     container_name: test_web
-
-  db:
-    image: mariadb:10.2
-    expose:
-      - "3306"
-    volumes:
-      - ./config/mysql-server:/etc/mysql
-      - ./logs/mysql_logs:/var/log
-      - /etc/localtime:/etc/localtime
-    environment:
-      MYSQL_ROOT_PASSWORD: 1234
-    restart: always
-    hostname: orangehrm-test-db
-    container_name: test_mysql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    volumes:
-      - /etc/localtime:/etc/localtime
-    links:
-      - db
-    ports:
-      - "9090:80"
-    environment:
-      PMA_HOST: db
-    restart: always
-    container_name: enterprise_test_phpmyadmin
