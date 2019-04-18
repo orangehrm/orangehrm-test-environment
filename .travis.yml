@@ -23,7 +23,6 @@ before_install:
   - php --version
   - docker version
   - composer self-update
-  - docker build -t $REPO:$TAG docker-image
 
 install:
   - docker-compose up -d
