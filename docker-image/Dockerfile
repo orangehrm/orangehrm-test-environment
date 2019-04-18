@@ -30,7 +30,7 @@ WORKDIR /var/www/html/installer/
 #install bower and gulp
 RUN npm install bower gulp nodemon node-sass pm2 -g
 
-install php-ast module
+#install php-ast module
 RUN pecl install ast
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
