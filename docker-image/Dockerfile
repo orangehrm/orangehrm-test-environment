@@ -30,7 +30,7 @@ WORKDIR /var/www/html/installer/
 RUN npm install bower gulp nodemon node-sass pm2 -g
 
 #install php-ast module
-RUN pecl install ast
+RUN pecl install -f ast-0.1.6
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
