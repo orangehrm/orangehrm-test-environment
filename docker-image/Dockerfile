@@ -37,6 +37,9 @@ RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 RUN pecl install stats-2.0.3
 RUN echo "extension=stats.so" >> /etc/php.ini
 
+# temporary switch on the "allow_url_fopen" to install composer and phan
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
+
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -65,5 +68,8 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 # enable and configure xdebug
 RUN pecl install Xdebug
 
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
+
 #installing nc command
 RUN yum install -y nmap-ncat
+
