@@ -1,7 +1,7 @@
 FROM orangehrm/orangehrm-environment-images:prod-7.2
 
 MAINTAINER orangehrm
-LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
+LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
 RUN yum install -y gcc-c++ make
@@ -30,12 +30,16 @@ WORKDIR /var/www/html/installer/
 RUN npm install bower gulp nodemon node-sass pm2 -g
 
 # install php-ast module
-# RUN pecl install ast
-# RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+RUN pecl install ast
+RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
-#RUN pecl install stats-2.0.3
-#RUN echo "extension=stats.so" >> /etc/php.ini
+RUN pecl install stats-2.0.3
+RUN echo "extension=stats.so" >> /etc/php.ini
+
+
+# temporary switch on the "allow_url_fopen" to install composer and phan
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -64,6 +68,10 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
 RUN pecl install Xdebug
+
+
+# temporary switch on the "allow_url_fopen" to install composer and phan
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
 RUN yum install -y nmap-ncat
