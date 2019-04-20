@@ -1,7 +1,7 @@
 FROM orangehrm/orangehrm-environment-images:prod-7.1
 
 MAINTAINER orangehrm
-LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
+LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
 RUN yum install -y gcc-c++ make
