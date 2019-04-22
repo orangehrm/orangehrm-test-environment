@@ -19,7 +19,7 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 5.5 is installed in the container");
+        $I->wantTo("verify php 5.6 is installed in the container");
         $I->runShellCommand("docker exec test_web php --version");
         $I->seeInShellOutput('PHP 5.6');
     }
@@ -41,6 +41,18 @@ class WebContainerCest
         $I->wantTo("verify Xdebug is installed in the container");
         $I->runShellCommand("docker exec test_web php -dzend_extension=xdebug.so --version");
         $I->seeInShellOutput('Xdebug v2.5.5');
+    }
+
+    public function npmTest(UnitTester $I){
+        $I->wantTo("verify availability of npm");
+        $I->runShellCommand("docker exec test_web npm -v");
+        $I->seeInShellOutput("3.10.10");
+    }
+
+    public function nodeJSTest(UnitTester $I){
+        $I->wantTo("verify availability of node js");
+        $I->runShellCommand("docker exec test_web node -v");
+        $I->seeInShellOutput("v6.13.1");
     }
 
 }
