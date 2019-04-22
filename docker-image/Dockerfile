@@ -39,6 +39,14 @@ RUN npm install pm2 -g
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
+#install php-ast module
+RUN pecl install -f ast
+RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+
+#install php-stats module
+RUN pecl install stats
+RUN echo "extension=stats.so" >> /etc/php.ini
+
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
