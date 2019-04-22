@@ -19,9 +19,9 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 7.0 is installed in the container");
+        $I->wantTo("verify php 5.6 is installed in the container");
         $I->runShellCommand("docker exec test_web php --version");
-        $I->seeInShellOutput('PHP 7.0');
+        $I->seeInShellOutput('PHP 5.6');
     }
 
     public function checkPHPUnitVersion(UnitTester $I){
@@ -41,17 +41,5 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web bash -c 'yum info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
         $I->seeInShellOutput('2.');
-    }
-
-    public function checkAstIsInstalled(UnitTester $I){
-        $I->wantTo("verify ast module is installed in the image");
-        $I->runShellCommand("docker exec test_web php -m");
-        $I->seeInShellOutput('ast');
-    }
-
-    public function checkStatsIsInstalled(UnitTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web php -m");
-        $I->seeInShellOutput('stats');
     }
 }
