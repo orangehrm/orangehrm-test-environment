@@ -5,6 +5,10 @@ LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 
+RUN touch /etc/yum.repos.d/wandisco-svn.repo
+RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+
+
 # install dependent software
 RUN yum -y install \
     bzip2 \
@@ -12,6 +16,9 @@ RUN yum -y install \
     nodejs \
     nc \
     nmap \
+    sendmail \
+    subversion mod_dav_svn \
+    vim \
     && yum -y update bash \
     && rm -rf /var/cache/yum/* \
     && yum clean all
