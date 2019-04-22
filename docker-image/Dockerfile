@@ -27,6 +27,10 @@ RUN npm install bower -g
 RUN npm install gulp -g
 RUN npm install nodemon -g
 RUN npm install pm2 -g
+
+# temporary switch on the "allow_url_fopen" to install composer and phan
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
+
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
@@ -52,4 +56,8 @@ COPY config/php.ini /etc/php.ini
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 RUN  chmod +x /usr/bin/phpunit
+
+# switch off allow_url_fopen
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
+
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
