@@ -43,12 +43,7 @@ class WebContainerCest
         $I->seeInShellOutput('Version');
         $I->seeInShellOutput('2.');
     }
-
-    public function checkBZip2Version(AcceptanceTester $I){
-        $I->wantTo("verify bzip2 is installed in the image");
-        $I->runShellCommand("docker exec test_web bzip2 -V");
-        $I->seeInShellOutput('Version 1');
-    }
+    
 
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
