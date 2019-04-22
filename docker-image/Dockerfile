@@ -1,7 +1,7 @@
 FROM orangehrm/orangehrm-environment-images:prod-5.6-centos
 
 MAINTAINER orangehrm
-LABEL authors = "Ridwan Shariffdeen <ridwan@orangehrmlive.com>, Chamin Wickramarathne  <chamin@orangehrmlive.com>, Thulana Kannangara <thulana@orangehrm.us.com>"
+LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 
