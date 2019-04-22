@@ -3,6 +3,7 @@ FROM orangehrm/orangehrm-environment-images:prod-5.6-centos
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
+RUN yum install -y gcc-c++ make
 RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
 
 RUN touch /etc/yum.repos.d/wandisco-svn.repo
