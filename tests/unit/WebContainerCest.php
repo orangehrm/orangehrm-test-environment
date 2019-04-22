@@ -52,7 +52,7 @@ class WebContainerCest
     public function nodeJSTest(UnitTester $I){
         $I->wantTo("verify availability of node js");
         $I->runShellCommand("docker exec test_web node -v");
-        $I->seeInShellOutput("v6.13.1");
+        $I->seeInShellOutput("v6");
     }
 
 }
