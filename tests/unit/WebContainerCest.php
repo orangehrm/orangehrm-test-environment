@@ -94,18 +94,6 @@ class WebContainerCest
         $I->seeInShellOutput('version: 2');
     }
 
-    public function checkASTIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify ast module is installed in the image");
-        $I->runShellCommand("docker exec test_web php -m | grep ast");
-        $I->seeInShellOutput('ast');
-    }
-
-    public function checkStatsIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web php -m | grep stats");
-        $I->seeInShellOutput('stats');
-    }
-
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web vim --version");
