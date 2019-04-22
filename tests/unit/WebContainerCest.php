@@ -43,7 +43,7 @@ class WebContainerCest
         $I->seeInShellOutput('Version');
         $I->seeInShellOutput('2.');
     }
-    
+
 
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
@@ -69,7 +69,7 @@ class WebContainerCest
     public function checkSendMailIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify sendmail is installed in the image");
         $I->runShellCommand("docker exec test_web which sendmail");
-        $I->seeInShellOutput('/usr/bin/sendmail');
+        $I->seeInShellOutput('/usr/sbin/sendmail');
     }
 
     public function checkSVNIsInstalled(AcceptanceTester $I){
@@ -81,13 +81,13 @@ class WebContainerCest
     public function checkBowerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify bower is installed in the image");
         $I->runShellCommand("docker exec test_web bower --version");
-        $I->seeInShellOutput('version 1');
+        $I->seeInShellOutput('1.8');
     }
 
     public function checkGulpIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify Gulp is installed in the image");
         $I->runShellCommand("docker exec test_web gulp --version");
-        $I->seeInShellOutput('version 2');
+        $I->seeInShellOutput('version: 2');
     }
 
     public function checkASTIsInstalled(AcceptanceTester $I){
