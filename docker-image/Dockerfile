@@ -34,7 +34,7 @@ RUN pecl install -f ast-0.1.6
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
-RUN pecl install stats-2.0.3
+RUN pecl install stats
 RUN echo "extension=stats.so" >> /etc/php.ini
 
 
