@@ -34,6 +34,9 @@ script:
   - php vendor/bin/codecept run unit
 
 after_success:
+  - docker-compose down --volumes
+  - docker rmi -f $REPO:$TAG
+  - docker build -t $REPO:$TAG
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
   - docker push $REPO:$TAG
 
