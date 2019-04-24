@@ -64,7 +64,6 @@ WORKDIR /var/www/html/installer/
 
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
-COPY config/php.ini /etc/php.ini
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 RUN  chmod +x /usr/bin/phpunit
