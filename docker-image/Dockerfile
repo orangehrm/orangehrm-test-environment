@@ -71,7 +71,7 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+RUN pecl install Xdebug-2.6.1
 
 #installing nc command
 RUN yum install -y nmap-ncat
