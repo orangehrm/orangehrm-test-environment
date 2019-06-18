@@ -66,7 +66,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+RUN pecl install Xdebug-2.6.1
 
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
