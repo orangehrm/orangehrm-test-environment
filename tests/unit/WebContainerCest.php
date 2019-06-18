@@ -41,7 +41,7 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web bash -c 'yum info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('2.6.1');
+        $I->seeInShellOutput('2');
     }
 
 
