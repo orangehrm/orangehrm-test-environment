@@ -60,6 +60,8 @@ COPY phpunit-5.7.21.phar /usr/bin/phpunit
 COPY phpunit-3.7.28.phar /usr/bin/phpunit3
 COPY phpunit-7.5.14.phar /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit
+RUN  chmod +x /usr/bin/phpunit3
+RUN  chmod +x /usr/bin/phpunit7
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
