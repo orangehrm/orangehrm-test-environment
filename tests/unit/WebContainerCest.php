@@ -30,6 +30,24 @@ class WebContainerCest
         $I->seeInShellOutput('PHPUnit 5.7.21');
     }
 
+    public function checkPHPUnit3Version(UnitTester $I){
+        $I->wantTo("verify phpunit library is installed in the container");
+        $I->runShellCommand("docker exec test_web phpunit3 --version");
+        $I->seeInShellOutput('PHPUnit 3.7.28');
+    }
+
+    public function checkPHPUnit7Version(UnitTester $I){
+        $I->wantTo("verify phpunit library is installed in the container");
+        $I->runShellCommand("docker exec test_web phpunit7 --version");
+        $I->seeInShellOutput('PHPUnit 7.5.14');
+    }
+
+    public function checkPHPUnit8Version(UnitTester $I){
+        $I->wantTo("verify phpunit library is installed in the container");
+        $I->runShellCommand("docker exec test_web phpunit8 --version");
+        $I->seeInShellOutput('PHPUnit 8.2.5');
+    }
+
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
         $I->runShellCommand("docker exec test_web nc -h");
