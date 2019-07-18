@@ -58,6 +58,7 @@ COPY config/mysql-client/conf.d /etc/mysql/conf.d
 COPY config/db-check.sh /var/www/db-check.sh
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 COPY phpunit-3.7.28.phar /usr/bin/phpunit3
+COPY phpunit-7.5.14.phar /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
