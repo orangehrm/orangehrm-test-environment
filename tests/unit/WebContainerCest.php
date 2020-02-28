@@ -24,11 +24,11 @@ class WebContainerCest
         $I->seeInShellOutput('PHP 5.4');
     }
 
-    public function checkPHPUnitVersion(UnitTester $I){
-        $I->wantTo("verify phpunit 5 library is installed in the container");
-        $I->runShellCommand("docker exec test_web phpunit --version");
-        $I->seeInShellOutput('PHPUnit 5.7.21');
-    }
+    // public function checkPHPUnitVersion(UnitTester $I){
+    //     $I->wantTo("verify phpunit 5 library is installed in the container");
+    //     $I->runShellCommand("docker exec test_web phpunit --version");
+    //     $I->seeInShellOutput('PHPUnit 5.7.21');
+    // }
 
     public function checkPHPUnit3Version(UnitTester $I){
         $I->wantTo("verify phpunit 3 library is installed in the container");
@@ -36,17 +36,17 @@ class WebContainerCest
         $I->seeInShellOutput('PHPUnit 3.7.28');
     }
 
-    public function checkPHPUnit7Version(UnitTester $I){
-        $I->wantTo("verify phpunit 7 library is installed in the container");
-        $I->runShellCommand("docker exec test_web phpunit7 --version");
-        $I->seeInShellOutput('PHPUnit 7.5.14');
-    }
+    // public function checkPHPUnit7Version(UnitTester $I){
+    //     $I->wantTo("verify phpunit 7 library is installed in the container");
+    //     $I->runShellCommand("docker exec test_web phpunit7 --version");
+    //     $I->seeInShellOutput('PHPUnit 7.5.14');
+    // }
 
-    public function checkPHPUnit8Version(UnitTester $I){
-        $I->wantTo("verify phpunit 8 library is installed in the container");
-        $I->runShellCommand("docker exec test_web phpunit8 --version");
-        $I->seeInShellOutput('PHPUnit 8.2.5');
-    }
+    // public function checkPHPUnit8Version(UnitTester $I){
+    //     $I->wantTo("verify phpunit 8 library is installed in the container");
+    //     $I->runShellCommand("docker exec test_web phpunit8 --version");
+    //     $I->seeInShellOutput('PHPUnit 8.2.5');
+    // }
 
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
