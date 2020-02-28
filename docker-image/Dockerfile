@@ -30,8 +30,8 @@ WORKDIR /var/www/html/installer/
 RUN npm install bower gulp nodemon node-sass pm2 -g
 
 # install php-ast module
-RUN pecl install ast
-RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+# RUN pecl install ast
+# RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
 RUN pecl install stats-1.0.5
@@ -73,7 +73,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+# RUN pecl install Xdebug
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
