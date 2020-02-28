@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.4-remi
+FROM orangehrm/orangehrm-environment-images:prod-5.4-remi
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -34,7 +34,7 @@ RUN pecl install ast
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
-RUN pecl install stats-2.0.3
+RUN pecl install stats-1.0.5
 RUN echo "extension=stats.so" >> /etc/php.ini
 
 
