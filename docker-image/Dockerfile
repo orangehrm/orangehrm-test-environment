@@ -69,8 +69,8 @@ RUN  chmod +x /usr/bin/phpunit8
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
-RUN cd /var/lib && composer require --dev phan/phan
-RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
+# RUN cd /var/lib && composer require --dev phan/phan
+# RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
 # RUN pecl install Xdebug
