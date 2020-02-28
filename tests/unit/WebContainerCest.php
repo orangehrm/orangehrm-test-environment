@@ -30,11 +30,11 @@ class WebContainerCest
     //     $I->seeInShellOutput('PHPUnit 5.7.21');
     // }
 
-    public function checkPHPUnit3Version(UnitTester $I){
-        $I->wantTo("verify phpunit 3 library is installed in the container");
-        $I->runShellCommand("docker exec test_web phpunit3 --version");
-        $I->seeInShellOutput('PHPUnit 3.7.28');
-    }
+    // public function checkPHPUnit3Version(UnitTester $I){
+    //     $I->wantTo("verify phpunit 3 library is installed in the container");
+    //     $I->runShellCommand("docker exec test_web phpunit3 --version");
+    //     $I->seeInShellOutput('PHPUnit 3.7.28');
+    // }
 
     // public function checkPHPUnit7Version(UnitTester $I){
     //     $I->wantTo("verify phpunit 7 library is installed in the container");
