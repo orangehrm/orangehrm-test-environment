@@ -73,7 +73,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug-2.6.1
+RUN pecl install xdebug-2.9.2
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
