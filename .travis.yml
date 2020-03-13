@@ -1,11 +1,6 @@
 language: php
 sudo: required
 
-env:
-  global:
-  - REPO=orangehrm/orangehrm-environment-images
-  - TAG=test-7.1
-
 matrix:
     include:
         - os: linux
