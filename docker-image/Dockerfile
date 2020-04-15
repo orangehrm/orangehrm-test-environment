@@ -26,14 +26,14 @@ USER root
 # set working dir as the installer directory
 WORKDIR /var/www/html/installer/
 
+#install bower and gulp
+RUN npm install bower gulp nodemon node-sass pm2 -g
+
 #update node to latest versions
 RUN npm cache clean -f
 RUN npm install -g n
 RUN npm install -g npm
 RUN n stable
-
-#install bower and gulp
-RUN npm install bower gulp nodemon node-sass pm2 -g
 
 #install php-ast module
 RUN pecl install ast
