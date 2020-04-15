@@ -19,7 +19,7 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 5.5 is installed in the container");
+        $I->wantTo("verify php 7.1 is installed in the container");
         $I->runShellCommand("docker exec test_web php --version");
         $I->seeInShellOutput('PHP 7.1');
     }
@@ -74,7 +74,7 @@ class WebContainerCest
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
         $I->runShellCommand("docker exec test_web node -v");
-        $I->seeInShellOutput('v6');
+        $I->seeInShellOutput('v12');
     }
 
 
