@@ -5,7 +5,7 @@ LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
 RUN yum install -y gcc-c++ make
-RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash -
 
 RUN touch /etc/yum.repos.d/wandisco-svn.repo
 RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
@@ -27,13 +27,11 @@ USER root
 WORKDIR /var/www/html/installer/
 
 #install bower and gulp
-RUN npm install bower gulp nodemon node-sass pm2 -g
-
-#update node to latest versions
-RUN npm cache clean -f
-RUN npm install -g n
-RUN npm install -g npm
-RUN n stable
+RUN npm install bower -g
+RUN npm install gulp -g
+RUN npm install nodemon -g
+RUN npm install -g node-sass --unsafe-perm=true --allow-root
+RUN npm install pm2 -g
 
 # install php-ast module
 RUN pecl install ast
