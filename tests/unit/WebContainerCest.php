@@ -79,7 +79,7 @@ class WebContainerCest
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
         $I->runShellCommand("docker exec test_web node -v");
-        $I->seeInShellOutput('v12');
+        $I->seeInShellOutput('v6');
     }
 
 
