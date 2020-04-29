@@ -48,7 +48,7 @@ RUN echo "extension=stats.so" >> /etc/php.ini
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
 # installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | /usr/local/lib/php/bin/php -- --install-dir=/usr/local/bin --filename=composer
 
 #add vhost config
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/vhosts/orangehrm.conf
