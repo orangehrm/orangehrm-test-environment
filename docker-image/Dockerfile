@@ -69,6 +69,8 @@ RUN  chmod +x /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit8
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
+ENV PATH="/usr/local/lib/php/bin:${PATH}"
+
 # installing phan
 RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
