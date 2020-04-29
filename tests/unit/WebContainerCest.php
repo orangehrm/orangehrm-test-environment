@@ -109,13 +109,13 @@ class WebContainerCest
 
     public function checkASTIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify ast module is installed in the image");
-        $I->runShellCommand("docker exec test_web /usr/local/lib/php/bin/phpphp -m | grep ast");
+        $I->runShellCommand("docker exec test_web /usr/local/lib/php/bin/php -m | grep ast");
         $I->seeInShellOutput('ast');
     }
 
     public function checkStatsIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web /usr/local/lib/php/bin/phpphp -m | grep stats");
+        $I->runShellCommand("docker exec test_web /usr/local/lib/php/bin/php -m | grep stats");
         $I->seeInShellOutput('stats');
     }
 
