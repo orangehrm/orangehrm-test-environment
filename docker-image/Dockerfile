@@ -37,7 +37,7 @@ RUN n stable
 
 # install php-ast module
 RUN /usr/local/lib/php/bin/pecl install ast
-RUN echo "extension=ast.so" >> /usr/local/lib/php/lib/php.ini
+RUN echo "\nextension=ast.so" >> /usr/local/lib/php/lib/php.ini
 
 #install php-stats module
 RUN /usr/local/lib/php/bin/pecl install stats-2.0.3
