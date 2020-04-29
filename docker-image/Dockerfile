@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.3
+FROM orangehrm/orangehrm-environment-images:prod-7.3.5-ING
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -51,18 +51,13 @@ RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 #add vhost config
-COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
-COPY config/apache2-sites/000-default.conf /etc/httpd/sites-available/000-default.conf
-COPY config/cert/orangehrm.crt /etc/apache2/cert/orangehrm.crt
-COPY config/cert/orangehrm.key /etc/apache2/cert/orangehrm.key
-RUN rm /etc/httpd/sites-enabled/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/000-default.conf /etc/httpd/sites-enabled/000-default.conf
+COPY config/apache2-sites/orangehrm.conf /etc/httpd/vhosts/orangehrm.conf
+COPY config/apache2-sites/000-default.conf /etc/httpd/vhosts/000-default.conf
+COPY config/cert/orangehrm.crt /etc/httpd/cert/orangehrm.crt
+COPY config/cert/orangehrm.key /etc/httpd/cert/orangehrm.key
 
 # copy configuration files
-COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
-COPY config/mysql-client/conf.d /etc/mysql/conf.d
-COPY config/db-check.sh /var/www/db-check.sh
+
 COPY phpunit-5.7.21.phar /usr/bin/phpunit
 COPY phpunit-3.7.28.phar /usr/bin/phpunit3
 COPY phpunit-7.5.14.phar /usr/bin/phpunit7
