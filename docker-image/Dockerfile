@@ -37,15 +37,15 @@ RUN n stable
 
 # install php-ast module
 RUN /usr/local/lib/php/bin/pecl install ast
-RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /usr/local/lib/php/lib/php.ini
 
 #install php-stats module
 RUN /usr/local/lib/php/bin/pecl install stats-2.0.3
-RUN echo "extension=stats.so" >> /etc/php.ini
+RUN echo "extension=stats.so" >> /usr/local/lib/php/lib/php.ini
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /usr/local/lib/php/lib/php.ini
 
 # installing composer
 RUN curl -sS https://getcomposer.org/installer | /usr/local/lib/php/bin/php -- --install-dir=/usr/local/bin --filename=composer
@@ -78,7 +78,7 @@ RUN /usr/local/lib/php/bin/pecl install xdebug-2.9.2
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /usr/local/lib/php/lib/php.ini
 
 #installing nc command
 RUN yum install -y nmap-ncat
