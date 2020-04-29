@@ -36,11 +36,11 @@ RUN npm install -g npm
 RUN n stable
 
 # install php-ast module
-RUN pecl install ast
+RUN /usr/local/lib/php/bin/pecl install ast
 RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
 
 #install php-stats module
-RUN pecl install stats-2.0.3
+RUN /usr/local/lib/php/bin/pecl install stats-2.0.3
 RUN echo "extension=stats.so" >> /etc/php.ini
 
 
@@ -74,7 +74,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install xdebug-2.9.2
+RUN /usr/local/lib/php/bin/pecl install xdebug-2.9.2
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
