@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.4-remi
+FROM orangehrm/orangehrm-environment-images:prod-7.4-ius
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -26,6 +26,9 @@ USER root
 # set working dir as the installer directory
 WORKDIR /var/www/html/installer/
 
+# set git system config to use https instead of git
+RUN git config --system url."https://".insteadOf git://
+
 #install bower and gulp
 RUN npm install bower -g
 RUN npm install gulp -g
@@ -35,7 +38,7 @@ RUN npm install pm2 -g
 
 # install php-ast module
 RUN pecl install ast
-RUN echo "extension=/usr/lib64/php/modules/ast.so" >> /etc/php.ini
+RUN echo "extension=ast.so" >> /etc/php.ini
 
 #install php-stats module
 RUN pecl install stats-2.0.3
