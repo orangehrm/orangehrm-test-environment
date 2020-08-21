@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.2
+FROM orangehrm/orangehrm-environment-images:prod-7.2-ius
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -25,6 +25,9 @@ RUN yum -y install \
 USER root
 # set working dir as the installer directory
 WORKDIR /var/www/html/installer/
+
+# set git system config to use https instead of git
+RUN git config --system url."https://".insteadOf git://
 
 #install bower and gulp
 RUN npm install bower gulp nodemon node-sass pm2 -g
