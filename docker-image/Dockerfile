@@ -27,7 +27,8 @@ USER root
 WORKDIR /var/www/html/installer/
 
 #install bower and gulp
-RUN npm install bower gulp nodemon node-sass pm2 -g
+RUN npm install bower gulp nodemon pm2 -g
+RUN npm install -f node-sass
 
 # install php-ast module
 RUN pecl install ast
