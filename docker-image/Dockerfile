@@ -33,7 +33,7 @@ RUN git config --system url."https://".insteadOf git://
 RUN npm install bower -g
 RUN npm install gulp -g
 RUN npm install nodemon -g
-RUN npm install -g node-sass --unsafe-perm=true --allow-root
+RUN npm install -f node-sass
 RUN npm install pm2 -g
 
 # install php-ast module
