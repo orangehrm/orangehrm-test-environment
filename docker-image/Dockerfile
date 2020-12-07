@@ -31,6 +31,7 @@ RUN git config --system url."https://".insteadOf git://
 
 #install bower and gulp
 RUN npm install bower gulp nodemon node-sass pm2 -g
+RUN npm install -f node-sass
 
 # install php-ast module
 RUN pecl install ast
