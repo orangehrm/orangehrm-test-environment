@@ -128,6 +128,6 @@ class WebContainerCest
     public function checkComposerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer is installed in the image");
         $I->runShellCommand("docker exec test_web composer --version");
-        $I->seeInShellOutput('Composer version 2');
+        $I->seeInShellOutput('Composer version 1');
     }
 }
