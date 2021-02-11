@@ -44,7 +44,7 @@ RUN pecl install stats
 RUN echo "extension=stats.so" >> /etc/php.ini
 
 # installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
 
 # Our user in the container
