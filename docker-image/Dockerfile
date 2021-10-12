@@ -5,22 +5,38 @@ LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
 RUN yum install -y gcc-c++ make
-RUN curl -sL https://rpm.nodesource.com/setup_6.x | bash -
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
 RUN touch /etc/yum.repos.d/wandisco-svn.repo
 RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
 #installing nodejs
+RUN source ~/.bash_profile
+RUN export NVM_DIR="$HOME/.nvm" \
+    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
+    && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \   
+    && source ~/.bash_profile \
+    && nvm install 6 \
+    && nvm alias default 6 \
+    && nvm install 14.17.5 \
+    && nvm alias latest 14.17.5 \
+    && nvm ls \
+    && nvm use default \ 
+    && npm install bower -g \ 
+    && npm install gulp -g \
+    && npm install nodemon -g \
+    && npm install -f node-sass \
+    && npm install pm2 -g
+
 RUN yum -y install \
     bzip2 \
     git \
     nmap \
-    nodejs \
     sendmail \
     subversion mod_dav_svn \
     vim \
     && yum -y update bash \
     && rm -rf /var/cache/yum/* \
-    && yum clean all
+    && yum clean all 
 # Our user in the container
 USER root
 # set working dir as the installer directory
@@ -28,13 +44,6 @@ WORKDIR /var/www/html/installer/
 
 # set git system config to use https instead of git
 RUN git config --system url."https://".insteadOf git://
-
-#install bower and gulp
-RUN npm install bower -g
-RUN npm install gulp -g
-RUN npm install nodemon -g
-RUN npm install -f node-sass
-RUN npm install pm2 -g
 
 # install php-ast module
 RUN pecl install ast
