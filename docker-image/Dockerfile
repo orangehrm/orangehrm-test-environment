@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.4-ius
+FROM orangehrm/orangehrm-environment-images:prod-7.4-rhel-a1
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -61,6 +61,9 @@ RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
 #add vhost config
+RUN mkdir -p /etc/httpd/sites-available
+RUN mkdir -p /etc/httpd/sites-enabled
+
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
 COPY config/apache2-sites/000-default.conf /etc/httpd/sites-available/000-default.conf
 COPY config/cert/orangehrm.crt /etc/apache2/cert/orangehrm.crt
