@@ -3,6 +3,8 @@ FROM orangehrm/orangehrm-environment-images:prod-7.4-rhel-a1
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
+COPY /etc/localtime /etc/localtime
+
 # install dependent software
 RUN yum install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
