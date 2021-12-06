@@ -1,24 +1,33 @@
-FROM orangehrm/orangehrm-environment-images:prod-7.4-ius
+FROM orangehrm/orangehrm-environment-images:prod-php-7.4-ubuntu20.04
 
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
-RUN yum install -y gcc-c++ make
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+RUN apt install build-essential \
+    &&  gcc --version
 
-RUN touch /etc/yum.repos.d/wandisco-svn.repo
-RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+RUN sh -c 'echo "deb http://opensource.wandisco.com/ubuntu focal svn19" >> /etc/apt/sources.list.d/subversion19.list'
+RUN wget -q http://opensource.wandisco.com/wandisco-debian-new.gpg -O- |  apt-key add -
+RUN apt-get update
+
+#install Subverson
+RUN apt-get install -y subversion
+
+# Replace shell with bash so we can source files
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN mkdir /usr/local/nvm
+ENV NVM_DIR /usr/local/nvm
+ENV NODE_VERSION_D 6
+ENV NODE_VERSION_L 14.17.5
+
 #installing nodejs
-RUN source ~/.bash_profile
-RUN export NVM_DIR="$HOME/.nvm" \
-    && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
-    && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \   
-    && source ~/.bash_profile \
-    && nvm install 6 \
-    && nvm alias default 6 \
-    && nvm install 14.17.5 \
-    && nvm alias latest 14.17.5 \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
+    && . $NVM_DIR/nvm.sh \  
+    && nvm install $NODE_VERSION_D \
+    && nvm alias default $NODE_VERSION_D \
+    && nvm install $NODE_VERSION_L \
+    && nvm alias latest $NODE_VERSION_L \
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
@@ -27,16 +36,22 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && npm install -f node-sass \
     && npm install pm2 -g
 
-RUN yum -y install \
+ENV NODE_PATH_D $NVM_DIR/v$NODE_VERSION_D/lib/node_modules
+ENV PATH_D      $NVM_DIR/v$NODE_VERSION_D/bin:$PATH
+
+ENV NODE_PATH_L $NVM_DIR/v$NODE_VERSION_L/lib/node_modules
+ENV PATH_L      $NVM_DIR/v$NODE_VERSION_L/bin:$PATH
+
+RUN apt install -y \
     bzip2 \
     git \
     nmap \
     sendmail \
-    subversion mod_dav_svn \
+    libapache2-mod-svn \
     vim \
-    && yum -y update bash \
-    && rm -rf /var/cache/yum/* \
-    && yum clean all 
+    && apt-get autoclean \
+    && apt-get install --only-upgrade bash
+
 # Our user in the container
 USER root
 # set working dir as the installer directory
@@ -45,29 +60,38 @@ WORKDIR /var/www/html/installer/
 # set git system config to use https instead of git
 RUN git config --system url."https://".insteadOf git://
 
-# install php-ast module
+#install bower and gulp
+#RUN npm install bower gulp nodemon pm2 -g
+#RUN npm install -f node-sass
+
+
+# # install php-ast module
 RUN pecl install ast
 RUN echo "extension=ast.so" >> /etc/php.ini
 
-#install php-stats module
+# #install php-stats module
 RUN pecl install stats-2.0.3
 RUN echo "extension=stats.so" >> /etc/php.ini
 
 
-# temporary switch on the "allow_url_fopen" to install composer and phan
+# # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
-# installing composer
+# # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
+#install mod_vhost_alias
+RUN a2enmod vhost_alias
+
 #add vhost config
-COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
-COPY config/apache2-sites/000-default.conf /etc/httpd/sites-available/000-default.conf
+COPY config/apache2-sites/orangehrm.conf /etc/apache2/sites-available/orangehrm.conf
+COPY config/apache2-sites/000-default.conf /etc/apache2/sites-available/000-default.conf
 COPY config/cert/orangehrm.crt /etc/apache2/cert/orangehrm.crt
 COPY config/cert/orangehrm.key /etc/apache2/cert/orangehrm.key
-RUN rm /etc/httpd/sites-enabled/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/orangehrm.conf /etc/httpd/sites-enabled/orangehrm.conf
-RUN ln -s /etc/httpd/sites-available/000-default.conf /etc/httpd/sites-enabled/000-default.conf
+RUN rm /etc/apache2/sites-enabled/000-default.conf
+RUN ln -s /etc/apache2/sites-available/orangehrm.conf /etc/apache2/sites-enabled/orangehrm.conf
+RUN ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabled/000-default.conf
+
 
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
@@ -78,15 +102,10 @@ COPY phpunit-3.7.28.phar /usr/bin/phpunit3
 COPY phpunit-7.5.14.phar /usr/bin/phpunit7
 COPY phpunit-8.2.5.phar /usr/bin/phpunit8
 
-COPY config/nvm /opt/nvm
-
-RUN  chmod 544 /opt/nvm
-
 RUN  chmod +x /usr/bin/phpunit
 RUN  chmod +x /usr/bin/phpunit3
 RUN  chmod +x /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit8
-#CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
 RUN cd /var/lib && composer require --dev phan/phan
@@ -95,9 +114,12 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 # enable and configure xdebug
 RUN pecl install Xdebug
 
-
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
-RUN yum install -y nmap-ncat
+RUN apt install -y netcat
+
+
+
+
