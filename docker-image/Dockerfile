@@ -83,6 +83,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 #install mod_vhost_alias
 RUN a2enmod vhost_alias
 
+#Enable mod_expire module
+RUN a2enmod expires
+
 #add vhost config
 COPY config/apache2-sites/orangehrm.conf /etc/apache2/sites-available/orangehrm.conf
 COPY config/apache2-sites/000-default.conf /etc/apache2/sites-available/000-default.conf
@@ -119,7 +122,3 @@ RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
 RUN apt install -y netcat
-
-
-
-
