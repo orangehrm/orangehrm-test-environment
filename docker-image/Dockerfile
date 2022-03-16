@@ -64,19 +64,25 @@ RUN git config --system url."https://".insteadOf git://
 #RUN npm install bower gulp nodemon pm2 -g
 #RUN npm install -f node-sass
 
+#install wkhtmltopdf (0.12.6)
+RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
+RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
 
 # # install php-ast module
 RUN pecl install ast
-RUN echo "extension=ast.so" >> /etc/php.ini
+RUN echo "extension=ast.so" >> /etc/php/7.4/apache2/php.ini
+RUN echo "extension=ast.so" >> /etc/php/7.4/cli/php.ini
 
 # #install php-stats module
 RUN pecl install stats-2.0.3
-RUN echo "extension=stats.so" >> /etc/php.ini
+RUN echo "extension=stats.so" >> /etc/php/7.4/apache2/php.ini
+RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
 
 
 # # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
-
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/apache2/php.ini
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/cli/php.ini
 # # installing composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
@@ -118,7 +124,8 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 RUN pecl install Xdebug
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/cli/php.ini
 
 #installing nc command
 RUN apt install -y netcat
