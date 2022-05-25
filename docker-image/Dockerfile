@@ -9,8 +9,8 @@ COPY /etc/localtime /etc/localtime
 RUN yum install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
-RUN touch /etc/yum.repos.d/wandisco-svn.repo
-RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+# RUN touch /etc/yum.repos.d/wandisco-svn.repo
+# RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
 #installing nodejs
 RUN source ~/.bash_profile
 RUN export NVM_DIR="$HOME/.nvm" \
