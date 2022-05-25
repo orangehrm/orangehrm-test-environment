@@ -6,7 +6,7 @@ LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 COPY /etc/localtime /etc/localtime
 
 # install dependent software
-RUN yum install -y gcc-c++ make
+RUN dnf install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
 # RUN touch /etc/yum.repos.d/wandisco-svn.repo
@@ -29,16 +29,16 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && npm install -f node-sass \
     && npm install pm2 -g
 
-RUN yum -y install \
+RUN dnf -y install \
     bzip2 \
     git \
     nmap \
     sendmail \
     subversion \
     vim \
-    && yum -y update bash \
-    && rm -rf /var/cache/yum/* \
-    && yum clean all 
+    && dnf -y update bash \
+    && rm -rf /var/cache/dnf/* \
+    && dnf clean all 
 # Our user in the container
 USER root
 # set working dir as the installer directory
@@ -105,4 +105,4 @@ RUN pecl install Xdebug
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
-RUN yum install -y nmap-ncat
+RUN dnf install -y nmap-ncat
