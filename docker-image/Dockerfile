@@ -34,7 +34,7 @@ RUN yum -y install \
     git \
     nmap \
     sendmail \
-    subversion mod_dav_svn \
+    subversion \
     vim \
     && yum -y update bash \
     && rm -rf /var/cache/yum/* \
