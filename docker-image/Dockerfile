@@ -3,6 +3,7 @@ FROM orangehrm/orangehrm-environment-images:prod-php-latest-rhel-8
 MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
+#comment
 COPY /etc/localtime /etc/localtime
 
 # install dependent software
