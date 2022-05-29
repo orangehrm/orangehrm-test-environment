@@ -2,6 +2,14 @@ FROM orangehrm/orangehrm-environment-images:prod-php-latest-rhel-8
 
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
+ARG REDHAT_USERNAME
+ARG REDHAT_PASSWORD
+
+# Register a system with the Red Hat Customer Portal
+RUN subscription-manager register --username $REDHAT_USERNAME --password $REDHAT_PASSWORD && \
+subscription-manager refresh && \
+subscription-manager attach --auto
+
 # install dependent software
 RUN dnf install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
@@ -101,3 +109,6 @@ RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
 RUN dnf install -y nmap-ncat
+
+# Unregister subscription
+RUN subscription-manager unregister
