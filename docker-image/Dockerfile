@@ -1,17 +1,13 @@
-FROM orangehrm/orangehrm-environment-images:prod-php-latest-rhel-8
+FROM orangehrm/orangehrm-environment-images:prod-7.4-ius
 
-MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
-#comment
-COPY /etc/localtime /etc/localtime
-
 # install dependent software
-RUN dnf install -y gcc-c++ make
+RUN yum install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
 
-# RUN touch /etc/yum.repos.d/wandisco-svn.repo
-# RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
+RUN touch /etc/yum.repos.d/wandisco-svn.repo
+RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
 #installing nodejs
 RUN source ~/.bash_profile
 RUN export NVM_DIR="$HOME/.nvm" \
@@ -30,16 +26,16 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && npm install -f node-sass \
     && npm install pm2 -g
 
-RUN dnf -y install \
+RUN yum -y install \
     bzip2 \
     git \
     nmap \
     sendmail \
-    subversion \
+    subversion mod_dav_svn \
     vim \
-    && dnf -y update bash \
-    && rm -rf /var/cache/dnf/* \
-    && dnf clean all 
+    && yum -y update bash \
+    && rm -rf /var/cache/yum/* \
+    && yum clean all 
 # Our user in the container
 USER root
 # set working dir as the installer directory
@@ -64,9 +60,6 @@ RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
 #add vhost config
-RUN mkdir -p /etc/httpd/sites-available
-RUN mkdir -p /etc/httpd/sites-enabled
-
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
 COPY config/apache2-sites/000-default.conf /etc/httpd/sites-available/000-default.conf
 COPY config/cert/orangehrm.crt /etc/apache2/cert/orangehrm.crt
@@ -106,4 +99,4 @@ RUN pecl install Xdebug
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
 
 #installing nc command
-RUN dnf install -y nmap-ncat
+RUN yum install -y nmap-ncat
