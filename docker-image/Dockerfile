@@ -17,11 +17,11 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | b
 # RUN touch /etc/yum.repos.d/wandisco-svn.repo
 # RUN echo $'[WandiscoSVN] \nname=Wandisco SVN Repo \nbaseurl=http://opensource.wandisco.com/centos/7/svn-1.9/RPMS/$basearch/ \nenabled=1 \ngpgcheck=0 ' > /etc/yum.repos.d/wandisco-svn.repo
 #installing nodejs
-RUN source ~/.bash_profile
+RUN source ~/.bashrc
 RUN export NVM_DIR="$HOME/.nvm" \
     && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" \
     && [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" \   
-    && source ~/.bash_profile \
+    && source ~/.bashrc \
     && nvm install 6 \
     && nvm alias default 6 \
     && nvm install 14.17.5 \
