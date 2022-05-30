@@ -65,14 +65,14 @@ class WebContainerCest
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel git --version");
-        $I->seeInShellOutput('version 1');
+        $I->seeInShellOutput('git');
     }
 
 
     public function checkNMAPIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify nmap is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel nmap -V");
-        $I->seeInShellOutput('version 6');
+        $I->seeInShellOutput('Nmap');
     }
 
 
