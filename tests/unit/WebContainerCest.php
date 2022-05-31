@@ -122,7 +122,7 @@ class WebContainerCest
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel vim --version");
-        $I->seeInShellOutput('Vi IMproved 7');
+        $I->seeInShellOutput('Vi IMproved');
     }
 
     public function checkComposerIsInstalled(AcceptanceTester $I){
