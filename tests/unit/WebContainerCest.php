@@ -78,7 +78,7 @@ class WebContainerCest
 
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel bash -c 'export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && node -v' ");
+        $I->runShellCommand('docker exec test_web_rhel bash -c "export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && node -v" ');
         $I->seeInShellOutput('v6');
     }
 
@@ -97,13 +97,13 @@ class WebContainerCest
 
     public function checkBowerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify bower is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel bash -c 'export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && bower --version' ");
+        $I->runShellCommand('docker exec test_web_rhel bash -c "export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && bower --version" ');
         $I->seeInShellOutput('1.8');
     }
 
     public function checkGulpIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify Gulp is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel bash -c 'export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && gulp --version' ");
+        $I->runShellCommand('docker exec test_web_rhel bash -c "export PATH=$PATH:/root/.nvm/versions/node/v6.17.1/bin && gulp --version" ');
         $I->seeInShellOutput('version: 2');
     }
 
