@@ -1,5 +1,6 @@
 FROM orangehrm/orangehrm-environment-images:prod-php-latest-rhel-8
 
+LABEL maintainer = "orangehrm"
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 ARG REDHAT_USERNAME
