@@ -1,7 +1,7 @@
 version: '2'
 services:
   web:
-    image: orangehrm/orangehrm-environment-images:test-7.4-ius
+    image: orangehrm/orangehrm-environment-images:test-php-7.4.19-rhel-8
     ports:
       - "443:443"
     volumes:
@@ -11,5 +11,5 @@ services:
       - /etc/localtime:/etc/localtime
     privileged: true
     restart: always
-    hostname: orangehrm-test-web
-    container_name: test_web
+    hostname: orangehrm-test-web_rhel
+    container_name: test_web_rhel
