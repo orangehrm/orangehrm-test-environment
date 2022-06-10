@@ -62,7 +62,6 @@ RUN echo "extension=ast.so" >> /etc/php.ini
 RUN pecl install stats-2.0.3
 RUN echo "extension=stats.so" >> /etc/php.ini
 
-
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
