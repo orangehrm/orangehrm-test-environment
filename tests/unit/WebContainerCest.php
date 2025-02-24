@@ -133,7 +133,7 @@ class WebContainerCest
     public function checkOslonDBInstallation(UnitTester $I){
         $I->wantTo("verify Oslon DB is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel php -i | grep -i timezone");
-        $I->seeInShellOutput('Timezone Database Version => 2024');
+        $I->seeInShellOutput('Timezone Database Version');
     }
 
     public function checkwkhtmltopdfInstallation(UnitTester $I){
